@@ -7,7 +7,7 @@
 --print文
 print ("Hello World")
 print ('Hello World')
-ptint "Hello World"
+print "Hello World"
 print([[Hello World]])
 
 --[[上記のprint文は出力結果がすべてHello Worldとして同じである。
@@ -30,10 +30,29 @@ print([[Hello World]])
 print([[Hello\nWorld]])
 
 --結果
-Hello\nWorld
+--Hello\nWorld
 
 --もし改行したい場合は下のようにコードを書く
 print([[Hello
 World!
 こんにちは世界
 ]])
+
+--長文を表示
+--例文
+print("Do not love the world or the things of the world. "..
+"If anyone loves the world, the love of the Father is not in him.")
+--結果
+--Do not love the world or the things of the world. If anyone loves the world, the love of the Father is not in him.
+
+--[[ ..という部分に注目
+これは複数の文字列をつなぎ合わせるときに使用する。--]]
+
+--ダブルクォーテーションを表示
+--例え、下記のように出力したいと思ったとき
+--Then God said, "Let there be light", and there was light.
+
+print("Then God said, "Let there be light", and there was light.") --間違った作成例
+
+print("Then God said, \"Let there be light\", and there was light.") --正しい作成例１
+print([[Then God said, "Let there be light", and there was light.]]) --正しい作成例２（エスケープ文字を無視するため）

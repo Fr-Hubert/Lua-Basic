@@ -147,3 +147,165 @@ end
 --~=はC言語の!=に対応する。
 
 --論理演算子
+--まずは次のコードを見ると
+local value1, value2 = 10, 20
+if value1 == 10 then
+    if value2 == 20 then
+        print("Hello")
+    end
+end
+
+--上記のコードはvalue1が10であり、かつvalue2が20である時Helloを出力するコードである。
+
+--上記のコードを論理演算子を使って書き直すと次のようになる。
+local value1, value2 = 10, 20
+if value1 == 10 and value2 == 20 then
+    print("Hello")
+end
+
+--論理演算子には上記のコード以外のこともある。
+--1．x == 値1 and y == 値2  xが値1かつyが値2、C言語の&&に対応
+--2．x == 値1 or y == 値2   xが値1またはyが値2、C言語の||に対応
+--3．Not x                  xの否定、C言語の!に対応
+
+--whileによる繰り返し
+--while文は次のように使う
+while (条件式) do
+    処理
+end
+
+--例文
+local i = 1
+while i <= 10 do
+    print("No " .. i)
+    i = i + 1
+end
+
+--例文の結果
+--No 1
+--No 2
+--No 3
+--No 4
+--No 5
+--No 6
+--No 7
+--No 8
+--No 9
+--No 10
+
+while true do
+    print("it's true")
+end
+
+--上記のwhile文の場合、条件は常に真ということになり、無限ループに陥る。（実行してみてもよいが、おすすめしない）
+
+--forによる繰り返し
+--for構文にはNumericforとGenericforの2種類が存在し、Genericforは難しいので、また後の章で説明することとしよう。
+--ここではNumericforについて説明していくとNumericforもwhile同様繰り返しの処理を行う場合に使用する。
+--ただし，whileとは違い、終了条件が数値でしか指定できない。
+
+--書式は下記のようになる。
+for 初期値,終了値,増加量 do
+    処理
+end
+
+--例文
+for i = 1, 10 do     --for i = 1, 10, 1 do と同じ意味である。
+    print("No " .. i)
+end
+
+--上記のコードはwhile文の例文と同じ結果であり、iを1から10まで1ずつ増加させていく
+--つまり，iが10以下の場合に繰り返しが行われる。
+
+--では、2ずつとかそれ以上ずつ増加したい場合を書いてみると
+for i = 1, 10, 2 do
+    print("No " .. i)
+end
+
+--上記のように最後に書く数字を変更するだけで可能になる。
+--forを使う上で注意しなければならないことは初期値で定義した変数（ループ変数）はfor文の中でのみ有効だということで、forを抜けた時点でループ変数は消滅してしまう。
+
+--repeatによる繰り返し
+
+--repeatを使ってループを行うこともできる。
+--repeatはwhileと違い，repeat内の処理は最低1回は必ず行われる。
+--処理を行ったあと、条件式を判定し、条件が真の場合、ループが終了する。
+
+--書式は次となる。
+repeat
+    処理
+until(条件式)
+--条件式が偽の場合、処理が繰り返し行われる。
+--真の場合ではないので注意するように！
+
+--例文
+local i = 1
+repeat
+    print("No " .. i)
+    i = i + 1
+until i >= 5
+
+--例文の結果
+--No 1
+--No 2
+--No 3
+--No 4
+
+--breakを使ったループの脱出
+
+--繰り返し処理を実行している間にbreak文を使うと、いつでもループから脱出することができる。
+--例えば次のようなプログラムを書いたとする。
+
+for i = 0, 10 do
+    print("i's value is : " .. i)
+    if i == 5 then
+        break
+    end
+end
+print("break")
+
+--結果
+--i's value is : 0
+--i's value is : 1
+--i's value is : 2
+--i's value is : 3
+--i's value is : 4
+--i's value is : 5
+--break
+
+--breakは必ずブロックの最後でしか使うことができない
+--ブロックの最後とは具体的に以下のような場所である。
+--1．endの手前
+--2．repeat-untilのuntilの手前等
+
+--上記の場所以外ではbreakは定義できない
+--しかし、デバッグ中に例えば処理の途中でbreakしたい場合があるかもしれない
+--次のようなコードがあったとする。
+
+for i =0, 10 do
+    print("なにか処理")
+    --本当はここでbreakしたい
+    print("別の処理")
+end
+print("脱出")
+
+--上記のコードのように途中で脱出したい場合はdo-endを使用する。
+
+--do-endの書式は次となる。
+
+do
+    処理
+end
+
+--よって，次のように書き直せば，処理の途中でbreakが行えるようになる。
+
+for　i =0, 10　do
+    print("なにか処理")
+    do
+        break
+    end
+    print("別の処理")
+end
+print("脱出")
+
+--作成中

@@ -115,13 +115,42 @@ local str = "Hello"
 local str_length = #str  -- str_length は 5
 
 --データタイプ
-1．nil : 予約語一覧の11番参照
-2．Boolean : trueとfalseの2つの値のみを持ち、論理演算で使用される。C99以降ではBool型が追加され、trueとfalseをサポートしている。それ以前は0と1を使用。
-3．Number : 基本的に浮動小数点数として扱われるが、Lua 5.3からは整数型と浮動小数点型が分かれている。C言語はint, float, doubleなどのさまざまな数値型があり、型を明示的に指定する必要がある。
-4．String : 文字列は文字の連続で構成されるデータ型である。文字列は不変(immutable)であり、さまざまな文字列操作関数が提供されている。
-5．Table : Luaにおける最も重要なデータ構造であり、配列、辞書、オブジェクトなどさまざまな形で使用できる。テーブルはキーと値のペアで構成され、Luaのすべてのデータ構造は基本的にテーブルに基づいている。
-6．function : Luaでは関数は一級オブジェクト(first-class object)として扱われ、変数に代入したり、関数の引数として渡したり、他の関数から返したりすることができる。Luaの関数はクロージャ(closure)機能をサポートし、関数が定義された環境を記憶することができる。
-7．Userdata : LuaでC言語で書かれた外部データを処理するために使用される型である。ユーザーデータはLuaで直接扱うのが難しいデータをCで処理できるようになる。
-8．Thread : Luaの協調的マルチタスキングをサポートする型で、コルーチン(coroutine)を使って並行処理のフローを制御できる。
+--1．nil : 予約語一覧の11番参照
+--2．Boolean : trueとfalseの2つの値のみを持ち、論理演算で使用される。C99以降ではBool型が追加され、trueとfalseをサポートしている。それ以前は0と1を使用。
+--3．Number : 基本的に浮動小数点数として扱われるが、Lua 5.3からは整数型と浮動小数点型が分かれている。C言語はint, float, doubleなどのさまざまな数値型があり、型を明示的に指定する必要がある。
+--4．String : 文字列は文字の連続で構成されるデータ型である。文字列は不変(immutable)であり、さまざまな文字列操作関数が提供されている。
+--5．Table : Luaにおける最も重要なデータ構造であり、配列、辞書、オブジェクトなどさまざまな形で使用できる。テーブルはキーと値のペアで構成され、Luaのすべてのデータ構造は基本的にテーブルに基づいている。
+--6．function : Luaでは関数は一級オブジェクト(first-class object)として扱われ、変数に代入したり、関数の引数として渡したり、他の関数から返したりすることができる。Luaの関数はクロージャ(closure)機能をサポートし、関数が定義された環境を記憶することができる。
+--7．Userdata : LuaでC言語で書かれた外部データを処理するために使用される型である。ユーザーデータはLuaで直接扱うのが難しいデータをCで処理できるようになる。
+--8．Thread : Luaの協調的マルチタスキングをサポートする型で、コルーチン(coroutine)を使って並行処理のフローを制御できる。
 
-作成中．．．
+--始まりの文には変数の型を意識しなくてもよいと言ったが、正確に言うとLuaの変数には型が存在し、それは動的である。
+--動的ってことは変数に入る値によって型が決められるって意味であり、type()として確認ができる。
+
+variable1 = nil
+print("variable1 is" .. type(variable1))
+
+variable2 = 11
+print("variable2 is" .. type(variable2))
+
+variable3 = "Lua"
+print("variable3 is" .. type(variable3))
+
+variable4 = "true"
+print("variable4 is" .. type(variable4))
+
+--結果
+--variable1 is nil
+--variable2 is number
+--variable3 is string
+--variable4 is boolean
+
+--キーボードからの値の読み込み
+--キーボードから何か値を入力して，変数の中に代入したい場合はio.read()関数を使う
+
+variable = nil
+print("input a string.:")
+variable = io.read()
+print("The input characters are".. variable)
+
+--こうやってキーボードからの値の読み込みができるようになり、これはC言語のscanf()、fgets()、getchar()に対応する。

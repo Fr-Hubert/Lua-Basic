@@ -307,5 +307,3 @@ for　i =0, 10　do
     print("別の処理")
 end
 print("脱出")
-
---作成中

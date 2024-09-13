@@ -313,6 +313,3 @@ print("value2 : " .. value2 .. " type : " .. type(value2))
 --数値から文字列に変換する際は，わざわざtostring関数を使用しなくても，空の文字列を追加するだけでよい。
   
 value2 = value2 .. ""
-
-  
-作成中...

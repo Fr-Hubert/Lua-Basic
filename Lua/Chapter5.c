@@ -46,12 +46,12 @@
  
 intmain (void)
 {
-  lua_State* L = luaL_newstate();
+    lua_State* L = luaL_newstate();
 
-  //ここに処理を書く
+    //ここに処理を書く
 
-  lua_close(L);
-  return0;
+    lua_close(L);
+    return0;
 }
 
 //Luaを呼び出すためには3つのヘッダファイル及びLuaのdllが必要である。
@@ -73,3 +73,96 @@ lua_pushstring(L,"Helloworld");
 lua_pushnil(L);
 
 //Lua関係の関数は殆どの場合，第1引数にluaStateを渡す必要がある。
+
+#include <stdio.h>
+
+#include "lua.h"
+#include "lualib.h"
+#include "lauxlib.h"
+
+voiddumpStack(lua_State* L)
+{
+    inti;
+    //スタックに積まれている数を取得する
+    intstackSize = lua_gettop(L);
+    for( i =stackSize; i >= 1; i--) {
+        inttype = lua_type(L,i);
+        printf("Stack[%2d-%10s] : ", i, lua_typename(L,type) );
+
+        switch(type ) {
+        case LUA_TNUMBER:
+            //number型
+            printf("%f",lua_tonumber(L, i) );
+            break;
+        case LUA_TBOOLEAN:
+            //boolean型
+            if(lua_toboolean(L,i) ){
+                printf("true");
+            }else{
+                printf("false");
+            }
+            break;
+        case LUA_TSTRING:
+            //string型
+            printf("%s",lua_tostring(L, i) );
+            break;
+        case LUA_TNIL:
+            //nil
+            break;
+        default:
+            //その他の型
+            printf("%s",lua_typename(L,type));
+            break;
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+
+intmain (void)
+{
+    lua_State* L = luaL_newstate();
+
+    lua_pushboolean(L, 1); //trueをpush
+    dumpStack(L);
+    lua_pushnumber(L,10.5); //10.5をpush
+    dumpStack(L);
+    lua_pushinteger(L, 3); //3をpush
+    dumpStack(L);
+    lua_pushnil(L);//nilをpush
+    dumpStack(L);
+    lua_pushstring(L,"Hello world"); //hello worldをpush
+    dumpStack(L);
+
+    lua_close(L);
+    return0;
+}
+
+//ここではLuaスタックの状態を見るためdumpStack関数を作成し、この関数内の処理は現段階では理解しなくて結構である。
+//スタックの一番下は1番目となっている。
+//値をプッシュするごとに2番目、3番目と積み重ねられていく。
+//dumpStack関数はスタックの位置、スタックに格納されているデータ型、及びデータの中身を表示する。
+//ただし、データの中身を表示できるのはnumber,boolean,string,nilに限る。
+
+//実行結果
+//Stack[1- boolean]: true
+//Stack[2- number] :10.500000
+//Stack[1- boolean]: true
+//Stack[3- number] :3.000000
+//Stack[2- number] :10.500000
+//Stack[1- boolean]: true
+//Stack[4- nil] :
+//Stack[3- number] :3.000000
+//Stack[2- number] :10.500000
+//Stack[1- boolean]: true
+//Stack[5- string] :Hello world
+//Stack[4- nil] :
+//Stack[3- number] :3.000000
+//Stack[2- number] :10.500000
+//Stack[1- boolean]: true
+
+
+/*  Luaスタックから値をポップ */
+
+//Luaスタックから値をポップしてみましょう．値をポップするにはluapop()関数を利用する。
+

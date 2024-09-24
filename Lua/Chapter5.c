@@ -36,3 +36,38 @@
 
 --下記のコードはC言語からLuaを利用するためのプログラムで、このプログラムはLuaを初期化したあと、何もしない
 
+#include <stdio.h>
+
+#include "lua.h"
+#include "lualib.h"
+#include "lauxlib.h"
+ 
+intmain (void)
+{
+  lua_State* L = luaL_newstate();
+
+  //ここに処理を書く
+
+  lua_close(L);
+  return0;
+}
+
+--Luaを呼び出すためには3つのヘッダファイル及びLuaのdllが必要である。
+--luaStateはLuaインタプリタの状態全体を保持する不透明な構造体である。
+--luaLnewstate()関数を呼び出すとLuaの新しい状態を作り出し，Luaが利用可能な状態となる。
+--Luaを利用するためには必ずこの関数を呼び出すこととなる。
+--luaState構造体であるLの中にはLuaインタプリタの現在の状態が保管されて、LuaをC言語側から利用する際には必ず利用する。
+--またLuaを終了する場合はluaclose()関数を呼び出して、この関数を呼び出すことでステート内で使われていたすべての動的メモリを解放する。
+
+--[Luaスタックへ値をプッシュ]--
+
+--Luaスタックへ値をプッシュする場合，luapush***関数を呼び出します。***の部分にはデータ型が入る。
+--例えばboolean型をプッシュする場合はbooleanが，number型をプッシュする場合はnumberが入る。
+
+lua_pushboolean(L,1);
+lua_pushnumber(L,10.5);
+lua_pushinteger(L,3);
+lua_pushstring(L,"Helloworld");
+lua_pushnil(L);
+
+Lua関係の関数は殆どの場合，第1引数にluaStateを渡す必要がある。
